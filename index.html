@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="style.css">
+    <script src="main.js" defer></script>
+    <title>Рейтинг региона</title>
+</head>
+<body>
+    <div>
+        <div class="container">
+            <h2 class="header__title title">Региональный ТЕРмостат.</h2>
+            <h3 class="header__subtitle title">Формирование рейтинга реализации государственной политики
+                в области энергоэффективности. (Калужская область)</h3>
+            <div class="strategic__planning block">
+                <div>
+                    <h3 class="title">Страт1</h3>
+                    <input type="text" placeholder="Финансирование" class="inp" id="inpSTRAT-1_1">
+                    <input type="text" placeholder="Расходы бюджета" class="inp" id="inpSTRAT-1_2">
+                    <button type="button" id="btnSTRAT-1" class="btn">Summary</button>
+                    <div class="strat1_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">Страт2</h3>
+                    <input type="text" placeholder="Финансирование" class="inp" id="inpSTRAT-2_1">
+                    <button type="button" id="btnSTRAT-2" class="btn">Summary</button>
+                    <div class="strat2_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">Страт3</h3>
+                    <input type="text" placeholder="Финансирование 2 периода" class="inp" id="inpSTRAT-3_1">
+                    <input type="text" placeholder="Объем экономии" class="inp" id="inpSTRAT-3_2">
+                    <input type="text" placeholder="Совокупное потребление" class="inp" id="inpSTRAT-3_3">
+                    <input type="text" placeholder="Финансирование" class="inp" id="inpSTRAT-3_4">
+                    <button type="button" id="btnSTRAT-3" class="btn">Summary</button>
+                    <div class="strat3_result result__wrap"></div>
+                </div>
+            </div>
+            <div class="road__infrastructure block">
+                <div>
+                    <h3 class="title">Дороги1</h3>
+                    <input type="text" placeholder="N Ээф лампы" class="inp" id="inpROADS-1_1">
+                    <input type="text" placeholder="Лампы совокуп" class="inp" id="inpROADS-1_2">
+                    <button type="button" id="btnROADS-1" class="btn">Summary</button>
+                    <div class="roads1_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">Дороги2</h3>
+                    <input type="text" placeholder="N Ээф лампы уличные" class="inp" id="inpROADS-2_1">
+                    <input type="text" placeholder="Лампы всего" class="inp" id="inpROADS-2_2">
+                    <button type="button" id="btnROADS-2" class="btn">Summary</button>
+                    <div class="roads2_result result__wrap"></div>
+                </div>
+            </div>
+            <div class="apartment__buildings block">
+                <div>
+                    <h3 class="title">МКД1</h3>
+                    <input type="text" placeholder="Энергоэффективный капремонт" class="inp" id="inpMKD-1_1">
+                    <input type="text" placeholder="Валовый капремонт" class="inp" id="inpMKD-1_2">
+                    <button type="button" id="btnMKD-1" class="btn">Summary</button>
+                    <div class="mkd1_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">МКД2</h3>
+                    <input type="text" placeholder="МКД с АИТП" class="inp" id="inpMKD-2_1">
+                    <input type="text" placeholder="МКД нуждающиеся в АИТП" class="inp" id="inpMKD-2_2">
+                    <button type="button" id="btnMKD-2" class="btn">Summary</button>
+                    <div class="mkd2_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">МКД3</h3>
+                    <input type="text" placeholder="МКД с прибором" class="inp" id="inpMKD-3_1">
+                    <input type="text" placeholder="МКД нуждающиеся в приборах" class="inp" id="inpMKD-3_2">
+                    <button type="button" id="btnMKD-3" class="btn">Summary</button>
+                    <div class="mkd3_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">МКД4</h3>
+                    <input type="text" placeholder="V-перекрест субсид" class="inp" id="inpMKD-4_1">
+                    <input type="text" placeholder="HBB котловая" class="inp" id="inpMKD-4_2">
+                    <button type="button" id="btnMKD-4" class="btn">Summary</button>
+                    <div class="mkd4_result result__wrap"></div>
+                </div>
+            </div>
+            <div class="municipal__institutions block">
+                <div>
+                    <h3 class="title">ГМУ1</h3>
+                    <input type="text" placeholder="Стоимость энергосервиса" class="inp" id="inpGMU-1_1">
+                    <input type="text" placeholder="Объем экономии" class="inp" id="inpGMU-1_2">
+                    <button type="button" id="btnGMU-1" class="btn">Summary</button>
+                    <div class="gmu1_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">ГМУ2</h3>
+                    <input type="text" placeholder="N Ээф ламп ГМУ" class="inp" id="inpGMU-2_1">
+                    <input type="text" placeholder="Совокупное число ламп ГМУ" class="inp" id="inpGMU-2_2">
+                    <button type="button" id="btnGMU-2" class="btn">Summary</button>
+                    <div class="gmu2_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">ГМУ3</h3>
+                    <input type="text" placeholder="N зданий с АИТП" class="inp" id="inpGMU-3_1">
+                    <input type="text" placeholder="N бюджет зданий" class="inp" id="inpGMU-3_2">
+                    <button type="button" id="btnGMU-3" class="btn">Summary</button>
+                    <div class="gmu3_result result__wrap"></div>
+                </div>
+            </div>
+            <div class="regional__centers block">
+                <div>
+                    <h3 class="title">РЦЭС1</h3>
+                    <input type="text" placeholder="Бюдж фин РЦЭС" class="inp" id="inpRCES-1_1">
+                    <input type="text" placeholder="Финансирование" class="inp" id="inpRCES-1_2">
+                    <button type="button" id="btnRCES-1" class="btn">Summary</button>
+                    <div class="rces1_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">РЦЭС2</h3>
+                    <input type="text" placeholder="N  посетителей сайта" class="inp" id="inpRCES-2_1">
+                    <input type="text" placeholder="Финансирования РЦЭС" class="inp" id="inpRCES-2_2">
+                    <button type="button" id="btnRCES-2" class="btn">Summary</button>
+                    <div class="rces2_result result__wrap"></div>
+                </div>
+                <div>
+                    <h3 class="title">РЦЭС3</h3>
+                    <input type="text" placeholder="Финансирования РЦЭС" class="inp" id="inpRCES-3_1">
+                    <input type="text" placeholder="Фин РЦЭС за 2 периода" class="inp" id="inpRCES-3_2">
+                    <button type="button" id="btnRCES-3" class="btn">Summary</button>
+                    <div class="rces3_result result__wrap"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

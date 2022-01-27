@@ -1,0 +1,68 @@
+* {
+    padding: 0;
+    margin: 0 auto;
+    box-sizing: border-box;
+}
+
+.container {
+    max-width: 1400px;
+    padding: 0 30px;
+}
+
+.block {
+    padding: 15px 10px;
+}
+
+.block:hover {
+    border: 2px solid #000;
+}
+
+.strategic__planning {
+    background-color: yellow;
+}
+
+.road__infrastructure {
+    background-color: palegreen;
+}
+
+.apartment__buildings {
+    background-color: cornflowerblue;
+}
+
+.municipal__institutions {
+    background-color: indianred;
+}
+
+.regional__centers {
+    background-color: lightskyblue;
+}
+
+
+.title {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.inp {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #000;
+    margin-bottom: 5px;
+}
+
+.btn {
+    padding: 10px 15px;
+    border-radius: 10px;
+    background-color: #fff;
+    color: #000;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+.btn:hover {
+    background-color: #000;
+    color: #fff;
+}
+
+.result__wrap {
+    margin: 20px 0;
+}
