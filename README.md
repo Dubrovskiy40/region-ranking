@@ -7,4 +7,6 @@
   в области энергоэффективности и энергосбережения
   на региональном уровне на основе рейтинговых систем
   («Региональный ТЭРмостат»)
+ 
+ Your site is ready to be published at https://dubrovskiy40.github.io/region-ranking/
 
