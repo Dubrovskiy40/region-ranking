@@ -2,15 +2,15 @@
 const dataScaling = [
     {
         strat1Min: -2.4537,
-        stran1Max: 1.1513
+        strat1Max: 1.1513
     },
     {
         strat2Min: -0.7926,
-        stran2Max: 1.1377
+        strat2Max: 1.1377
     },
     {
         strat3Min: -2.0126,
-        stran3Max: 1.3774
+        strat3Max: 1.3774
     },
     {
         roads1Min: -1.6868,
@@ -65,15 +65,15 @@ const dataScaling = [
 const standardizationZ = [
     {
         strat1Middle: 0.56,
-        stran1SKO: 0.23
+        strat1SKO: 0.23
     },
     {
         strat2Middle: 0.3,
-        stran2SKO: 1.29
+        strat2SKO: 1.29
     },
     {
         strat3Middle: 0.07,
-        stran3SKO: 0.03
+        strat3SKO: 0.03
     },
     {
         roads1Middle: 0.95,
@@ -125,12 +125,57 @@ const standardizationZ = [
     },
 ];
 
+//Расчёт
+function getBaseLog(x, y) {
+    if (!x && !y) {
+        console.log('Данные не заполнены')
+    }
+    let log = Math.log(x) / Math.log(y);
+    return log;
+}
+//Получение нормализованного значения
+function gettingNormalizedValue(value, value1, value2) {
+    let normalizedValue = (value - value1) / value2;
+    return normalizedValue;
+}
+//Шкалирвоание нормализованного значения
+function normalizedScalingValue(value, value1, value2) {
+    let scalingValue = ((value - value1) / (value2 - value1)) * 100;
+    return scalingValue.toFixed(2);
+}
+
+function getRender(name, tag, scal) {
+    tag.innerHTML = `
+        <div>
+            <h3 class="subTitle">Результат по индикатору: ${name}</h3>
+            <span class="result">Итоговое значение в баллах: ${scal}</span>
+        </div>
+    `
+}
+
 //СТРАТ1
 const inpSTRAT1_1 = document.getElementById('inpSTRAT-1_1');
 const inpSTRAT1_2 = document.getElementById('inpSTRAT-1_2');
 const btnSTRAT1 = document.getElementById('btnSTRAT-1');
 const strat1Result = document.querySelector('.strat1_result');
+btnSTRAT1.addEventListener('click', getResultSTRAT1);
 
+function getResultSTRAT1() {
+    if (!inpSTRAT1_1.value || !inpSTRAT1_2.value) {
+        getRender('СТРАТ1', strat1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpSTRAT1_1.value, inpSTRAT1_2.value);
+        let normalizedValue1 = standardizationZ[0].strat1Middle;
+        let normalizedValue2 = standardizationZ[0].strat1SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[0].strat1Min;
+        let scalingValue2 = dataScaling[0].strat1Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('СТРАТ1', strat1Result, resultScalingValue);
+    }
+}
 
 //СТРАТ2
 const inpSTRAT2_1 = document.getElementById('inpSTRAT-2_1');
@@ -150,6 +195,24 @@ const inpROADS1_1 = document.getElementById('inpROADS-1_1');
 const inpROADS1_2 = document.getElementById('inpROADS-1_2');
 const btnROADS1 = document.getElementById('btnROADS-1');
 const roads1Result = document.querySelector('.roads1_result');
+btnROADS1.addEventListener('click', getResultROADS1);
+
+function getResultROADS1() {
+    if (!inpROADS1_1.value || !inpROADS1_2.value) {
+        getRender('ДОРОГИ1', roads1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpROADS1_1.value, inpROADS1_2.value);
+        let normalizedValue1 = standardizationZ[3].roads1Middle;
+        let normalizedValue2 = standardizationZ[3].roads1SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[3].roads1Min;
+        let scalingValue2 = dataScaling[3].roads1Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ДОРОГИ1', roads1Result, resultScalingValue);
+    }
+}
 
 //ДОРОГИ2
 const inpROADS2_1 = document.getElementById('inpROADS-2_1');
@@ -158,30 +221,7 @@ const btnROADS2 = document.getElementById('btnROADS-2');
 const roads2Result = document.querySelector('.roads2_result');
 
 
-//Расчёт
-function getBaseLog(x, y) {
-    let log = Math.log(x) / Math.log(y);
-    return log;
-}
-    //Получение нормализованного значения
-function gettingNormalizedValue(value, value1, value2) {
-    let normalizedValue = (value - value1) / value2;
-    return normalizedValue;
-}
-    //Шкалирвоание нормализованного значения
-function normalizedScalingValue(value, value1, value2) {
-    let scalingValue = ((value - value1) / (value2 - value1)) * 100;
-    return scalingValue.toFixed(2);
-}
 
-function getRender(name, tag, scal) {
-    tag.innerHTML = `
-        <div>
-            <h3 class="subTitle">Результат по индикатору ${name}</h3>
-            <span class="result">Итоговое значение в баллах: ${scal}</span>
-        </div>
-    `
-}
 
 //МКД1
 const inpMKD1_1 = document.getElementById('inpMKD-1_1');
@@ -191,14 +231,20 @@ const mkd1Result = document.querySelector('.mkd1_result');
 btnMKD1.addEventListener('click', getResultMkd1);
 
 function getResultMkd1() {
-    let resultLog = getBaseLog(inpMKD1_1.value, inpMKD1_2.value);
-    let normalizedValue1 = standardizationZ[5].mkd1Middle;
-    let normalizedValue2 = standardizationZ[5].mkd1SKO;
-    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
-    let scalingValue1 = dataScaling[5].mkd1Min;
-    let scalingValue2 = dataScaling[5].mkd1Max;
-    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
-    getRender('МКД1', mkd1Result, resultScalingValue);
+    if (!inpMKD1_1.value || !inpMKD1_2.value) {
+        getRender('МКД1', mkd1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpMKD1_1.value, inpMKD1_2.value);
+        let normalizedValue1 = standardizationZ[5].mkd1Middle;
+        let normalizedValue2 = standardizationZ[5].mkd1SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[5].mkd1Min;
+        let scalingValue2 = dataScaling[5].mkd1Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('МКД1', mkd1Result, resultScalingValue);
+    }
 }
 
 //МКД2
@@ -209,14 +255,20 @@ const mkd2Result = document.querySelector('.mkd2_result');
 btnMKD2.addEventListener('click', getResultMkd2);
 
 function getResultMkd2() {
-    let resultLog = getBaseLog(inpMKD2_1.value, inpMKD2_2.value);
-    let normalizedValue1 = standardizationZ[6].mkd2Middle;
-    let normalizedValue2 = standardizationZ[6].mkd2SKO;
-    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
-    let scalingValue1 = dataScaling[6].mkd2Min;
-    let scalingValue2 = dataScaling[6].mkd2Max;
-    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
-    getRender('МКД2', mkd2Result, resultScalingValue);
+    if (!inpMKD2_1.value || !inpMKD2_2.value) {
+        getRender('МКД2', mkd2Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpMKD2_1.value, inpMKD2_2.value);
+        let normalizedValue1 = standardizationZ[6].mkd2Middle;
+        let normalizedValue2 = standardizationZ[6].mkd2SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[6].mkd2Min;
+        let scalingValue2 = dataScaling[6].mkd2Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('МКД2', mkd2Result, resultScalingValue);
+    }
 }
 
 //МКД3
@@ -227,15 +279,20 @@ const mkd3Result = document.querySelector('.mkd3_result');
 btnMKD3.addEventListener('click', getResultMkd3);
 
 function getResultMkd3() {
-    let resultLog = getBaseLog(inpMKD3_1.value, (Number(inpMKD3_2.value) + Number(inpMKD3_1.value)));
-    console.log('resultLog',resultLog)
-    let normalizedValue1 = standardizationZ[7].mkd3Middle;
-    let normalizedValue2 = standardizationZ[7].mkd3SKO;
-    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
-    let scalingValue1 = dataScaling[7].mkd3Min;
-    let scalingValue2 = dataScaling[7].mkd3Max;
-    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
-    getRender('МКД3', mkd3Result, resultScalingValue);
+    if (!inpMKD3_1.value || !inpMKD3_2.value) {
+        getRender('МКД3', mkd3Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpMKD3_1.value, (Number(inpMKD3_2.value) + Number(inpMKD3_1.value)));
+        let normalizedValue1 = standardizationZ[7].mkd3Middle;
+        let normalizedValue2 = standardizationZ[7].mkd3SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[7].mkd3Min;
+        let scalingValue2 = dataScaling[7].mkd3Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('МКД3', mkd3Result, resultScalingValue);
+    }
 }
 
 //МКД4
@@ -246,14 +303,20 @@ const mkd4Result = document.querySelector('.mkd4_result');
 btnMKD4.addEventListener('click', getResultMkd4);
 
 function getResultMkd4() {
-    let resultLog = getBaseLog(inpMKD4_1.value, inpMKD4_2.value);
-    let normalizedValue1 = standardizationZ[8].mkd4Middle;
-    let normalizedValue2 = standardizationZ[8].mkd4SKO;
-    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
-    let scalingValue1 = dataScaling[8].mkd4Min;
-    let scalingValue2 = dataScaling[8].mkd4Max;
-    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
-    getRender('МКД4', mkd4Result, resultScalingValue);
+    if (!inpMKD4_1.value || !iinpMKD4_2.value) {
+        getRender('МКД4', mkd4Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpMKD4_1.value, inpMKD4_2.value);
+        let normalizedValue1 = standardizationZ[8].mkd4Middle;
+        let normalizedValue2 = standardizationZ[8].mkd4SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[8].mkd4Min;
+        let scalingValue2 = dataScaling[8].mkd4Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('МКД4', mkd4Result, resultScalingValue);
+    }
 }
 
 //ГМУ1
