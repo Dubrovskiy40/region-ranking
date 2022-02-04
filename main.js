@@ -125,45 +125,80 @@ const standardizationZ = [
     },
 ];
 
-//МКД1
-const inpMKD1_1 = document.getElementById('inpMKD-1_1');
-const inpMKD1_2 = document.getElementById('inpMKD-1_2');
-const btnMKD1 = document.getElementById('btnMKD-1');
-const mkd1Result = document.querySelector('.mkd1_result');
-btnMKD1.addEventListener('click', getResult);
+//СТРАТ1
+const inpSTRAT1_1 = document.getElementById('inpSTRAT-1_1');
+const inpSTRAT1_2 = document.getElementById('inpSTRAT-1_2');
+const btnSTRAT1 = document.getElementById('btnSTRAT-1');
+const strat1Result = document.querySelector('.strat1_result');
 
+
+//СТРАТ2
+const inpSTRAT2_1 = document.getElementById('inpSTRAT-2_1');
+const btnSTRAT2 = document.getElementById('btnSTRAT-2');
+const strat2Result = document.querySelector('.strat2_result');
+
+//СТРАТ3
+const inpSTRAT3_1 = document.getElementById('inpSTRAT-3_1');
+const inpSTRAT3_2 = document.getElementById('inpSTRAT-3_2');
+const inpSTRAT3_3 = document.getElementById('inpSTRAT-3_3');
+const inpSTRAT3_4 = document.getElementById('inpSTRAT-3_4');
+const btnSTRAT3= document.getElementById('btnSTRAT-3');
+const strat3Result = document.querySelector('.strat3_result');
+
+//ДОРОГИ1
+const inpROADS1_1 = document.getElementById('inpROADS-1_1');
+const inpROADS1_2 = document.getElementById('inpROADS-1_2');
+const btnROADS1 = document.getElementById('btnROADS-1');
+const roads1Result = document.querySelector('.roads1_result');
+
+//ДОРОГИ2
+const inpROADS2_1 = document.getElementById('inpROADS-2_1');
+const inpROADS2_2 = document.getElementById('inpROADS-2_2');
+const btnROADS2 = document.getElementById('btnROADS-2');
+const roads2Result = document.querySelector('.roads2_result');
+
+
+//Расчёт
 function getBaseLog(x, y) {
     let log = Math.log(x) / Math.log(y);
     return log;
 }
-
-//Получение нормализованного значения
-function gettingNormalizedValue(value) {
-    let normalizedValue = (value - standardizationZ[5].mkd1Middle) / standardizationZ[5].mkd1SKO;
+    //Получение нормализованного значения
+function gettingNormalizedValue(value, value1, value2) {
+    let normalizedValue = (value - value1) / value2;
     return normalizedValue;
 }
-
-//Шкалирвоание нормализованного значения
-function normalizedScalingValue(value) {
-    let scalingValue = ((value - dataScaling[5].mkd1Min) / (dataScaling[5].mkd1Max - dataScaling[5].mkd1Min)) * 100;
-    console.log('scalingValue', scalingValue);
-    return scalingValue;
+    //Шкалирвоание нормализованного значения
+function normalizedScalingValue(value, value1, value2) {
+    let scalingValue = ((value - value1) / (value2 - value1)) * 100;
+    return scalingValue.toFixed(2);
 }
 
-function getRender(log, norm, scal) {
-    mkd1Result.innerHTML = `
+function getRender(name, tag, scal) {
+    tag.innerHTML = `
         <div>
-            <h3 class="subTitle">Результат по индикатору МКД1</h3>
+            <h3 class="subTitle">Результат по индикатору ${name}</h3>
             <span class="result">Итоговое значение в баллах: ${scal}</span>
         </div>
     `
 }
 
-function getResult() {
+//МКД1
+const inpMKD1_1 = document.getElementById('inpMKD-1_1');
+const inpMKD1_2 = document.getElementById('inpMKD-1_2');
+const btnMKD1 = document.getElementById('btnMKD-1');
+const mkd1Result = document.querySelector('.mkd1_result');
+btnMKD1.addEventListener('click', getResultMkd1);
+
+function getResultMkd1() {
     let resultLog = getBaseLog(inpMKD1_1.value, inpMKD1_2.value);
-    let resultNormalizedValue = gettingNormalizedValue(resultLog);
-    let resultScalingValue = normalizedScalingValue(resultNormalizedValue);
-    getRender(resultLog, resultNormalizedValue, resultScalingValue);
+    let normalizedValue1 = standardizationZ[5].mkd1Middle;
+    let normalizedValue2 = standardizationZ[5].mkd1SKO;
+    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+    let scalingValue1 = dataScaling[5].mkd1Min;
+    let scalingValue2 = dataScaling[5].mkd1Max;
+    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+    getRender('МКД1', mkd1Result, resultScalingValue);
 }
 
 //МКД2
@@ -171,4 +206,108 @@ const inpMKD2_1 = document.getElementById('inpMKD-2_1');
 const inpMKD2_2 = document.getElementById('inpMKD-2_2');
 const btnMKD2 = document.getElementById('btnMKD-2');
 const mkd2Result = document.querySelector('.mkd2_result');
-btnMKD2.addEventListener('click', getResult);
+btnMKD2.addEventListener('click', getResultMkd2);
+
+function getResultMkd2() {
+    let resultLog = getBaseLog(inpMKD2_1.value, inpMKD2_2.value);
+    let normalizedValue1 = standardizationZ[6].mkd2Middle;
+    let normalizedValue2 = standardizationZ[6].mkd2SKO;
+    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+    let scalingValue1 = dataScaling[6].mkd2Min;
+    let scalingValue2 = dataScaling[6].mkd2Max;
+    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+    getRender('МКД2', mkd2Result, resultScalingValue);
+}
+
+//МКД3
+const inpMKD3_1 = document.getElementById('inpMKD-3_1');
+const inpMKD3_2 = document.getElementById('inpMKD-3_2');
+const btnMKD3 = document.getElementById('btnMKD-3');
+const mkd3Result = document.querySelector('.mkd3_result');
+btnMKD3.addEventListener('click', getResultMkd3);
+
+function getResultMkd3() {
+    let resultLog = getBaseLog(inpMKD3_1.value, (Number(inpMKD3_2.value) + Number(inpMKD3_1.value)));
+    console.log('resultLog',resultLog)
+    let normalizedValue1 = standardizationZ[7].mkd3Middle;
+    let normalizedValue2 = standardizationZ[7].mkd3SKO;
+    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+    let scalingValue1 = dataScaling[7].mkd3Min;
+    let scalingValue2 = dataScaling[7].mkd3Max;
+    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+    getRender('МКД3', mkd3Result, resultScalingValue);
+}
+
+//МКД4
+const inpMKD4_1 = document.getElementById('inpMKD-4_1');
+const inpMKD4_2 = document.getElementById('inpMKD-4_2');
+const btnMKD4 = document.getElementById('btnMKD-4');
+const mkd4Result = document.querySelector('.mkd4_result');
+btnMKD4.addEventListener('click', getResultMkd4);
+
+function getResultMkd4() {
+    let resultLog = getBaseLog(inpMKD4_1.value, inpMKD4_2.value);
+    let normalizedValue1 = standardizationZ[8].mkd4Middle;
+    let normalizedValue2 = standardizationZ[8].mkd4SKO;
+    let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+    let scalingValue1 = dataScaling[8].mkd4Min;
+    let scalingValue2 = dataScaling[8].mkd4Max;
+    let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+    getRender('МКД4', mkd4Result, resultScalingValue);
+}
+
+//ГМУ1
+const inpGMU1_1 = document.getElementById('inpGMU-1_1');
+const inpGMU1_2 = document.getElementById('inpGMU-1_2');
+const btnGMU1 = document.getElementById('btnGMU-1');
+const gmu1Result = document.querySelector('.gmu1_result');
+
+//ГМУ2
+const inpGMU2_1 = document.getElementById('inpGMU-2_1');
+const inpGMU2_2 = document.getElementById('inpGMU-2_2');
+const btnGMU2 = document.getElementById('btnGMU-2');
+const gmu2Result = document.querySelector('.gmu2_result');
+
+//ГМУ3
+const inpGMU3_1 = document.getElementById('inpGMU-3_1');
+const inpGMU3_2 = document.getElementById('inpGMU-3_2');
+const btnGMU3 = document.getElementById('btnGMU-3');
+const gmu3Result = document.querySelector('.gmu3_result');
+
+//РЦЭ1
+const inpRCES1_1 = document.getElementById('inpRCES-1_1');
+const inpRCES1_2 = document.getElementById('inpRCES-1_2');
+const btnRCES1 = document.getElementById('btnRCES-1');
+const rces1Result = document.querySelector('.rces1_result');
+
+//РЦЭ2
+const inpRCES2_1 = document.getElementById('inpRCES-2_1');
+const inpRCES2_2 = document.getElementById('inpRCES-2_2');
+const btnRCES2 = document.getElementById('btnRCES-2');
+const rces2Result = document.querySelector('.rces2_result');
+
+//РЦЭ3
+const inpRCES3_1 = document.getElementById('inpRCES-3_1');
+const inpRCES3_2 = document.getElementById('inpRCES-3_2');
+const btnRCES3 = document.getElementById('btnRCES-3');
+const rces3Result = document.querySelector('.rces3_result');
+
+
+
+// const inputs = document.getElementsByTagName('input');
+//
+// for (let i = 0; i < inputs.length; i++) {
+//     inputs[i].addEventListener('change', getChangeInp)
+// }
+//
+// function getChangeInp(event) {
+//     console.log(event.target.value)
+// }
+//
+//
+// const buttons = document.querySelectorAll('.btn');
+// console.log(buttons);
+//
+// buttons.forEach(btn => {
+//     btn.addEventListener('click', getResult);
+// })
