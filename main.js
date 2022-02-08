@@ -189,6 +189,24 @@ const inpSTRAT3_3 = document.getElementById('inpSTRAT-3_3');
 const inpSTRAT3_4 = document.getElementById('inpSTRAT-3_4');
 const btnSTRAT3= document.getElementById('btnSTRAT-3');
 const strat3Result = document.querySelector('.strat3_result');
+btnSTRAT3.addEventListener('click', getResultSTRAT3);
+
+function getResultSTRAT3() {
+    if (!inpSTRAT3_2.value || !inpSTRAT3_3.value || !inpSTRAT3_4.value) {
+        getRender('СТРАТ3', strat3Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = (Math.log(inpSTRAT3_2.value) / Math.log(inpSTRAT3_3.value)) / Math.log(inpSTRAT3_4.value);
+        let normalizedValue1 = standardizationZ[2].strat3Middle;
+        let normalizedValue2 = standardizationZ[2].strat3SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[2].strat3Min;
+        let scalingValue2 = dataScaling[2].strat3Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('СТРАТ3', strat3Result, resultScalingValue);
+    }
+}
 
 //ДОРОГИ1
 const inpROADS1_1 = document.getElementById('inpROADS-1_1');
@@ -219,9 +237,24 @@ const inpROADS2_1 = document.getElementById('inpROADS-2_1');
 const inpROADS2_2 = document.getElementById('inpROADS-2_2');
 const btnROADS2 = document.getElementById('btnROADS-2');
 const roads2Result = document.querySelector('.roads2_result');
+btnROADS2.addEventListener('click', getResultROADS2);
 
-
-
+function getResultROADS2() {
+    if (!inpROADS2_1.value || !inpROADS2_2.value) {
+        getRender('ДОРОГИ1', roads1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpROADS2_1.value, inpROADS2_2.value);
+        let normalizedValue1 = standardizationZ[4].roads2Middle;
+        let normalizedValue2 = standardizationZ[4].roads2SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[4].roads2Min;
+        let scalingValue2 = dataScaling[4].roads2Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ДОРОГИ2', roads2Result, resultScalingValue);
+    }
+}
 
 //МКД1
 const inpMKD1_1 = document.getElementById('inpMKD-1_1');
@@ -303,7 +336,7 @@ const mkd4Result = document.querySelector('.mkd4_result');
 btnMKD4.addEventListener('click', getResultMkd4);
 
 function getResultMkd4() {
-    if (!inpMKD4_1.value || !iinpMKD4_2.value) {
+    if (!inpMKD4_1.value || !inpMKD4_2.value) {
         getRender('МКД4', mkd4Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
         let message = document.querySelector('.result');
         message.classList.add('error');
@@ -324,37 +357,144 @@ const inpGMU1_1 = document.getElementById('inpGMU-1_1');
 const inpGMU1_2 = document.getElementById('inpGMU-1_2');
 const btnGMU1 = document.getElementById('btnGMU-1');
 const gmu1Result = document.querySelector('.gmu1_result');
+btnGMU1.addEventListener('click', getResultGmu1);
+
+function getResultGmu1() {
+    if (!inpGMU1_1.value || !inpGMU1_2.value) {
+        getRender('ГМУ1', gmu1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpGMU1_1.value, inpGMU1_2.value);
+        let normalizedValue1 = standardizationZ[9].gmu1Middle;
+        let normalizedValue2 = standardizationZ[9].gmu1SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[9].gmu1Min;
+        let scalingValue2 = dataScaling[9].gmu1Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ГМУ1', gmu1Result, resultScalingValue);
+    }
+}
 
 //ГМУ2
 const inpGMU2_1 = document.getElementById('inpGMU-2_1');
 const inpGMU2_2 = document.getElementById('inpGMU-2_2');
 const btnGMU2 = document.getElementById('btnGMU-2');
 const gmu2Result = document.querySelector('.gmu2_result');
+btnGMU2.addEventListener('click', getResultGmu2);
+
+function getResultGmu2() {
+    if (!inpGMU2_1.value || !inpGMU2_2.value) {
+        getRender('ГМУ2', gmu2Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpGMU2_1.value, inpGMU2_2.value);
+        let normalizedValue1 = standardizationZ[10].gmu2Middle;
+        let normalizedValue2 = standardizationZ[10].gmu2SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[10].gmu2Min;
+        let scalingValue2 = dataScaling[10].gmu2Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ГМУ2', gmu2Result, resultScalingValue);
+    }
+}
 
 //ГМУ3
 const inpGMU3_1 = document.getElementById('inpGMU-3_1');
 const inpGMU3_2 = document.getElementById('inpGMU-3_2');
 const btnGMU3 = document.getElementById('btnGMU-3');
 const gmu3Result = document.querySelector('.gmu3_result');
+btnGMU3.addEventListener('click', getResultGmu3);
+
+function getResultGmu3() {
+    if (!inpGMU3_1.value || !inpGMU3_2.value) {
+        getRender('ГМУ3', gmu3Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpGMU3_1.value, inpGMU3_2.value);
+        let normalizedValue1 = standardizationZ[11].gmu3Middle;
+        let normalizedValue2 = standardizationZ[11].gmu3SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[11].gmu3Min;
+        let scalingValue2 = dataScaling[11].gmu3Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ГМУ3', gmu3Result, resultScalingValue);
+    }
+}
 
 //РЦЭ1
 const inpRCES1_1 = document.getElementById('inpRCES-1_1');
 const inpRCES1_2 = document.getElementById('inpRCES-1_2');
 const btnRCES1 = document.getElementById('btnRCES-1');
 const rces1Result = document.querySelector('.rces1_result');
+btnRCES1.addEventListener('click', getResultRce1);
+
+function getResultRce1() {
+    if (!inpRCES1_1.value || !inpRCES1_2.value) {
+        getRender('ОРГ1', rces1Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpRCES1_1.value, inpRCES1_2.value);
+        let normalizedValue1 = standardizationZ[12].org1Middle;
+        let normalizedValue2 = standardizationZ[12].org1SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[12].org1Min;
+        let scalingValue2 = dataScaling[12].org1Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ОРГ1', rces1Result, resultScalingValue);
+    }
+}
 
 //РЦЭ2
 const inpRCES2_1 = document.getElementById('inpRCES-2_1');
 const inpRCES2_2 = document.getElementById('inpRCES-2_2');
 const btnRCES2 = document.getElementById('btnRCES-2');
 const rces2Result = document.querySelector('.rces2_result');
+btnRCES2.addEventListener('click', getResultRce2);
+
+function getResultRce2() {
+    if (!inpRCES1_1.value || !inpRCES1_2.value) {
+        getRender('ОРГ2', rces2Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = getBaseLog(inpRCES2_1.value, inpRCES2_2.value);
+        let normalizedValue1 = standardizationZ[13].org2Middle;
+        let normalizedValue2 = standardizationZ[13].org2SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[13].org2Min;
+        let scalingValue2 = dataScaling[13].org2Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ОРГ2', rces2Result, resultScalingValue);
+    }
+}
 
 //РЦЭ3
 const inpRCES3_1 = document.getElementById('inpRCES-3_1');
 const inpRCES3_2 = document.getElementById('inpRCES-3_2');
 const btnRCES3 = document.getElementById('btnRCES-3');
 const rces3Result = document.querySelector('.rces3_result');
+btnRCES3.addEventListener('click', getResultRce3);
 
+function getResultRce3() {
+    if (!inpRCES3_1.value || !inpRCES3_2.value) {
+        getRender('ОРГ3', rces3Result, 'результат не может быть посчитан. т.к. не указаны исходные значения...');
+        let message = document.querySelector('.result');
+        message.classList.add('error');
+    } else {
+        let resultLog = ((inpRCES3_1.value / inpRCES3_2.value) ** 1 / 2) - 1;
+        let normalizedValue1 = standardizationZ[14].org3Middle;
+        let normalizedValue2 = standardizationZ[14].org3SKO;
+        let resultNormalizedValue = gettingNormalizedValue(resultLog, normalizedValue1, normalizedValue2);
+        let scalingValue1 = dataScaling[14].org3Min;
+        let scalingValue2 = dataScaling[14].org3Max;
+        let resultScalingValue = normalizedScalingValue(resultNormalizedValue, scalingValue1, scalingValue2);
+        getRender('ОРГ3', rces3Result, resultScalingValue);
+    }
+}
 
 
 // const inputs = document.getElementsByTagName('input');
